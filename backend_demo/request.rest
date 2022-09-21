@@ -1,0 +1,16 @@
+GET "http://localhost:8000"
+
+###
+
+GET "http://localhost:8000/marka/tplink"
+
+###
+
+POST  "http://localhost:8000/ujtermek"
+Content-Type: application/json
+
+{
+    id:429,
+    termeknev:"switch",
+    marka:"TpLink"
+}
