@@ -1,0 +1,30 @@
+GET http://localhost:8000/tanulok/
+###
+
+POST http://localhost:8000/tanulok
+Content-Type: application/json
+
+{
+    "id":4,
+    "nev":"Jolán",
+    "kor":19
+}
+###
+PATCH http://localhost:8000/tanulok/4
+Content-Type: application/json
+
+{  
+    "nev":"Judit"   
+}
+###
+PUT http://localhost:8000/tanulok/4
+Content-Type: application/json
+
+{
+    "id":4,
+    "nev":"Jolán",
+    "kor":19
+}
+
+###
+DELETE http://localhost:8000/tanulok/4

@@ -1,0 +1,24 @@
+{
+  "tanulok": [
+    {
+      "id": 1,
+      "nev": "Ubul",
+      "kor": 14
+    },
+    {
+      "id": 2,
+      "nev": "Éva",
+      "kor": 16
+    },
+    {
+      "id": 3,
+      "nev": "Elek",
+      "kor": 17
+    },
+    {
+      "id": 4,
+      "nev": "Judit",
+      "kor": 19
+    }
+  ]
+}

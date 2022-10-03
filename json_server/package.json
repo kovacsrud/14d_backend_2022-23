@@ -1,0 +1,17 @@
+{
+  "name": "json_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server --port 8000 --watch db.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cross-fetch": "^3.1.5",
+    "json-server": "^0.17.0"
+  }
+}
