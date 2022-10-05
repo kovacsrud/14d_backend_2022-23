@@ -70,7 +70,9 @@ app.post('/ujtermek',(req,res)=>{
     //Valahogy hozzá kellene jutni a küldött adatokhoz..
     console.log(req.body);
     let ujadat=req.body;
+    console.log(ujadat);
     minta=[...minta,ujadat];
+    
     res.json({message:"Új adat beszúrva!"});
 
 });
