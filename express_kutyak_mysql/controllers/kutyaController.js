@@ -7,7 +7,7 @@ const conn=mysql.createConnection({
 });
 
 const getKutyak=(req,res)=>{
-    conn.query("SELECT kutyak.id,fajtaid,nev,kutyanev, nevid, eletkor, utolsoell FROM kutyak,kutyanevek,kutyafajtak WHERE kutyak.nevid=kutyanevek.id and kutyak.fajtaid=kutyafajtak.id",(err,rows)=>{
+    conn.query("SELECT kutyak.id,fajtaid,nev,kutyanev, nevid, eletkor, utolsoell FROM kutyak,kutyanevek,kutyafajtak WHERE kutyak.nevid=kutyanevek.id and kutyak.fajtaid=kutyafajtak.id ORDER BY kutyak.id",(err,rows)=>{
         if(err){
             res.status(400).send(err);
         } else {
@@ -24,7 +24,7 @@ const postKutya=(req,res)=>{
         if(err){
             res.status(400).send(err);
         } else {
-            res.json({message:"Adat beszúrva!"+result.affectedRows});
+            res.status(201).json({message:"Adat beszúrva!"+result.affectedRows});
         }
     })
 }
@@ -37,7 +37,7 @@ const patchKutya=(req,res)=>{
         if(err){
             res.status(400).send(err);
         } else {
-            res.json({message:"Adat módosítva!"+result.affectedRows});
+            res.status(200).json({message:"Adat módosítva!"+result.affectedRows});
         }
     })
 }
@@ -50,7 +50,7 @@ const deleteKutya=(req,res)=>{
         if(err){
             res.status(400).send(err);
         } else {
-            res.json({message:"Adat törölve!"+result.affectedRows});
+            res.status(200).json({message:"Adat törölve!"+result.affectedRows});
         }
     })
 }
@@ -58,7 +58,8 @@ const deleteKutya=(req,res)=>{
 module.exports={
     getKutyak,
     postKutya,
-    patchKutya,deleteKutya
+    patchKutya,
+    deleteKutya
 }
 
 //SELECT kutyak.id,fajtaid,nev,kutyanev, nevid, eletkor, utolsoell FROM kutyak,kutyanevek,kutyafajtak WHERE kutyak.nevid=kutyanevek.id and kutyak.fajtaid=kutyafajtak.id 
