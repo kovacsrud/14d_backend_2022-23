@@ -6,6 +6,52 @@ const conn=mysql.createConnection({
     "database":"kutyak"
 });
 
+const getKutyakByKor=(req,res)=>{
+    const also=req.params.also;
+    const felso=req.params.felso;
+    
+    conn.query("SELECT kutyak.id,fajtaid,nev,kutyanev, nevid, eletkor, utolsoell FROM kutyak,kutyanevek,kutyafajtak WHERE kutyak.nevid=kutyanevek.id and kutyak.fajtaid=kutyafajtak.id and eletkor>=? and eletkor<=? ORDER BY kutyak.id"
+    ,[also,felso]
+    ,(err,rows)=>{
+        if(err){
+            res.status(400).send(err);
+        } else {
+            res.json(rows);
+        }
+    })
+}
+
+
+const getKutyakByFajta=(req,res)=>{
+    const keresettFajta=req.params.keresettfajta;
+    console.log(req.params.keresettfajta);
+
+    conn.query("SELECT kutyak.id,fajtaid,nev,kutyanev, nevid, eletkor, utolsoell FROM kutyak,kutyanevek,kutyafajtak WHERE kutyak.nevid=kutyanevek.id and kutyak.fajtaid=kutyafajtak.id and Lower(nev)=Lower(?) ORDER BY kutyak.id"
+    ,[keresettFajta]
+    ,(err,rows)=>{
+        if(err){
+            res.status(400).send(err);
+        } else {
+            res.json(rows);
+        }
+    })
+}
+
+const getKutyakByName=(req,res)=>{
+    const keresettNev=req.params.keresettnev;
+    conn.query("SELECT kutyak.id,fajtaid,nev,kutyanev, nevid, eletkor, utolsoell FROM kutyak,kutyanevek,kutyafajtak WHERE kutyak.nevid=kutyanevek.id and kutyak.fajtaid=kutyafajtak.id and Lower(kutyanev)=Lower(?) ORDER BY kutyak.id"
+    ,[keresettNev]
+    ,(err,rows)=>{
+        if(err){
+            res.status(400).send(err);
+        } else {
+            res.json(rows);
+        }
+    })
+}
+
+
+
 const getKutyak=(req,res)=>{
     conn.query("SELECT kutyak.id,fajtaid,nev,kutyanev, nevid, eletkor, utolsoell FROM kutyak,kutyanevek,kutyafajtak WHERE kutyak.nevid=kutyanevek.id and kutyak.fajtaid=kutyafajtak.id ORDER BY kutyak.id",(err,rows)=>{
         if(err){
@@ -59,7 +105,11 @@ module.exports={
     getKutyak,
     postKutya,
     patchKutya,
-    deleteKutya
+    deleteKutya,
+    getKutyakByName,
+    getKutyakByFajta,
+    getKutyakByKor
+    
 }
 
 //SELECT kutyak.id,fajtaid,nev,kutyanev, nevid, eletkor, utolsoell FROM kutyak,kutyanevek,kutyafajtak WHERE kutyak.nevid=kutyanevek.id and kutyak.fajtaid=kutyafajtak.id 

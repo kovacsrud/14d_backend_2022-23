@@ -4,6 +4,8 @@ const app=express();
 app.use(cors());
 
 app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
 
 app.use('/api/rendelo/kutyanevek',require('./routes/kutyanevRoutes'));
 app.use('/api/rendelo/kutyafajtak',require('./routes/kutyafajtaRoutes'));
