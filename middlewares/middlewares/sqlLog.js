@@ -1,9 +1,9 @@
 const mysql=require('mysql');
 const conn=mysql.createConnection({
-    host:"localhost",
-    user:"root",
-    password:"",
-    database:"backendlog"
+    host:process.env.LOG_HOST,
+    user:process.env.LOG_USER,
+    password:process.env.LOG_PASSWORD,
+    database:process.env.LOG_DATABASE
 });
 
 const sqlLog=(req,res,next)=>{
