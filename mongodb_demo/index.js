@@ -84,3 +84,34 @@ app.post('/belepes',asyncHandler(async (req,res)=>{
 
 
 }));
+
+app.patch('/modosit',asyncHandler(async (req,res)=>{
+    const {_id,email,password,age}=req.body;
+
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+        res.status(400);
+        throw new Error("Hibás Id");
+    }
+
+    const user=await User.findById(_id);
+    if(!user){
+        res.status(400);
+        throw new Error("Nincs ilyen felhasználó!");
+    }
+
+    if(!await bcrypt.compare(password,user.password)){
+        res.status(400);
+        throw new Error("Nem megfelelő jelszó!");
+    }
+
+    if(!email) {
+        res.status(400);
+        throw new Error("Hiányos adatok!");
+    }
+    await User.findByIdAndUpdate(_id,{email,age});
+
+    res.status(200);
+    res.json(await User.findById(_id));
+
+}));
+
