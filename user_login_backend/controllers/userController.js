@@ -9,7 +9,34 @@ const generateToken=(id)=>{
 }
 
 const register=asyncHandler(async (req,res)=>{
-    res.send("Register");
+    const {username,password,email,age}=req.body;
+    const user=await User.findOne({username:username});
+    if(user){
+        res.status(400);
+        throw new Error("A felhasználónév foglalt!");
+    }
+    const e_mail=await User.findOne({email:email});
+    if(e_mail){
+        res.status(400);
+        throw new Error("Ezzel az e-mail-el már regisztráltak!");
+    }
+    if(!username || !password || !email){
+        res.status(400);
+        throw new Error("Hiányos adatok!");
+    }
+        
+    const hashedPassword=await bcrypt.hash(password,10);
+
+    const ujUser=await User.create({
+        username:username,
+        password:hashedPassword,
+        email:email,
+        age:age
+    });
+    console.log(ujUser.id);
+    const token=generateToken(ujUser.id);
+    res.json(token);
+
 });
 
 const login=asyncHandler(async (req,res)=>{
