@@ -5,11 +5,14 @@ const asyncHandler=require('express-async-handler');
 
 const protect=asyncHandler(async (req,res,next)=>{
     let token;
-    if(req.header.authorization && req.header.authorization.startsWith('Bearer')){
+    
+    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
+        
         try {
-            token=req.header.authorization.split(' ')[1];
+            token=req.headers.authorization.split(' ')[1];
+            
             const idFromtoken=jwt.verify(token,process.env.JWT_SECRET);
-            req.user=await User.findById(idFromtoken.id);
+            req.user=await User.findById(idFromtoken.id).select('-password');
             next();
             
         } catch (error) {

@@ -59,7 +59,12 @@ const login=asyncHandler(async (req,res)=>{
 });
 
 const getUser=asyncHandler(async (req,res)=>{
-    res.send("Get user");
+    const user=req.user;
+    res.json(user);
 });
 
-module.exports={register,login,getUser}
+const modifyUser=asyncHandler(async (req,res)=>{
+    res.json({message:"Felhasználó adatmódosítás"});
+})
+
+module.exports={register,login,getUser,modifyUser}
